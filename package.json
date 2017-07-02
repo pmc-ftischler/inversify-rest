@@ -4,10 +4,11 @@
   "description": "",
   "main": "dist/app.js",
   "dependencies": {
+    "@types/node": "^8.0.7",
     "express": "^4.15.3",
     "inversify": "^4.1.1",
     "reflect-metadata": "^0.1.10",
-    "@types/node": "^8.0.7",
+    "ts-node": "^3.1.0",
     "typescript": "^2.4.1"
   },
   "devDependencies": {
@@ -15,7 +16,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && cp -R data dist && node dist/app.js",
+    "postinstall": "tsc && cp -R data dist",
+    "start": "node dist/app.js",
+    "serve": "tsc && cp -R data dist && node dist/app.js",
     "lint": "tslint --project tsconfig.json --type-check --fix"
   },
   "author": "",
