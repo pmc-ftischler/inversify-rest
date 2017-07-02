@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "571f756c355268bc464e98a3",
+    "name": "Peter Tester",
+    "email": "p.tester@test.de",
+    "abteilung": 0
+  },
+  {
+    "_id": "571f82ee0ee369883da2c557",
+    "name": "Max Mustermann",
+    "email": "m.mustermann@muster.de",
+    "abteilung": 1
+  }
+]

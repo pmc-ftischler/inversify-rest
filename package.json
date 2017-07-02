@@ -1,0 +1,23 @@
+{
+  "name": "inversify-rest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/app.js",
+  "dependencies": {
+    "express": "^4.15.3",
+    "inversify": "^4.1.1",
+    "reflect-metadata": "^0.1.10",
+    "@types/node": "^8.0.7",
+    "typescript": "^2.4.1"
+  },
+  "devDependencies": {
+    "tslint": "^5.4.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && cp -R data dist && node dist/app.js",
+    "lint": "tslint --project tsconfig.json --type-check --fix"
+  },
+  "author": "",
+  "license": "ISC"
+}
