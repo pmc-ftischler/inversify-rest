@@ -1,15 +1,20 @@
-import * as express from 'express';
 import 'reflect-metadata';
 import { appContainer } from './config/inversify.config';
-import { MainController } from './controller/main.controller';
+import { InversifyExpressServer } from 'inversify-express-utils';
+import * as bodyParser from 'body-parser';
 
-export const app = express();
 const port = process.env.PORT || 3000;
 
-const mainController = appContainer.get<MainController>(MainController);
+const server = new InversifyExpressServer(appContainer);
 
-mainController.initRoutes();
-
-app.listen(port, () => {
-    console.log(`App is listening on port ${port}!`);
+server.setConfig(app => {
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
+    app.use(bodyParser.json());
 });
+
+const app = server.build();
+
+app.listen(port);
+console.log(`Server is listening on port ${port}`);

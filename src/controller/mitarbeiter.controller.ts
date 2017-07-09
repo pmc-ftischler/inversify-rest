@@ -1,62 +1,24 @@
-import * as fs from 'fs';
 import { injectable } from 'inversify';
-import * as path from 'path';
-import { app } from '../index';
-import { Mitarbeiter } from '../model/mitarbeiter';
-import { RESTController } from '../model/rest-controller';
+import { MitarbeiterService } from '../services/mitarbeiter.service';
+import { Request } from 'express';
+import { controller, httpGet } from 'inversify-express-utils';
+import { ROUTES } from '../config/routes.config';
 
-/**
- * Controller for mitarbeiter routes
- * @class MitarbeiterController
- * @implements RESTController
- */
 @injectable()
-export class MitarbeiterController implements RESTController {
-    private static mitarbeiterListe: Mitarbeiter[] = [];
-
-    /**
-     * Constructor for MitarbeiterController
-     */
-    constructor() {
-        try {
-            const fileBuffer = fs.readFileSync(path.join(__dirname, '..', '..', 'data', 'mitarbeiter.json'));
-            MitarbeiterController.mitarbeiterListe = JSON.parse(fileBuffer.toString());
-        } catch (e) {
-            console.warn('File could not be loaded');
-        }
+@controller(ROUTES.mitarbeiter)
+export class MitarbeiterController {
+    constructor(private mitarbeiterService: MitarbeiterService) {
     }
 
-    /**
-     * Init for routes of this controller
-     */
-    initRoutes() {
-        app.get('/api/mitarbeiter', this.getAllMitarbeiter);
-        app.get('/api/mitarbeiter/:id', this.getMitarbeiter);
+    @httpGet('/')
+    private getAllMitarbeiter() {
+        return this.mitarbeiterService.getMitarbeiterListe();
     }
 
-    /**
-     * Route middleware for getting all employees
-     * @param req
-     * @param res
-     * @param next
-     */
-    private getAllMitarbeiter(req?, res?, next?) {
-        res.json(MitarbeiterController.mitarbeiterListe);
-    }
-
-    /**
-     * Route middlerware for getting a specific employee by ID
-     * @param req
-     * @param res
-     * @param next
-     */
-    private getMitarbeiter(req?, res?, next?) {
-        const mitarbeiter = MitarbeiterController.mitarbeiterListe
+    @httpGet('/:id')
+    private getMitarbeiter(req: Request) {
+        const mitarbeiter = this.mitarbeiterService.getMitarbeiterListe()
             .find(ma => ma._id === req.params.id);
-        if (mitarbeiter) {
-            res.json(mitarbeiter);
-        } else {
-            res.sendStatus(404);
-        }
+        return mitarbeiter;
     }
 }
