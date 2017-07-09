@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { RESTController } from '../model/rest-controller';
 import { MitarbeiterController } from './mitarbeiter.controller';
-import { app } from '../app';
+import { app } from '../index';
 
 /**
  * Controller for main routes

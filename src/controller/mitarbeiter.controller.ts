@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { injectable } from 'inversify';
 import * as path from 'path';
-import { app } from '../app';
+import { app } from '../index';
 import { Mitarbeiter } from '../model/mitarbeiter';
 import { RESTController } from '../model/rest-controller';
 
@@ -19,7 +19,7 @@ export class MitarbeiterController implements RESTController {
      */
     constructor() {
         try {
-            const fileBuffer = fs.readFileSync(path.join(__dirname, '..', 'data', 'mitarbeiter.json'));
+            const fileBuffer = fs.readFileSync(path.join(__dirname, '..', '..', 'data', 'mitarbeiter.json'));
             MitarbeiterController.mitarbeiterListe = JSON.parse(fileBuffer.toString());
         } catch (e) {
             console.warn('File could not be loaded');
