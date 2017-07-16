@@ -12,9 +12,8 @@ server.setConfig(app => {
         extended: true
     }));
     app.use(bodyParser.json());
+    app.listen(port);
 });
 
-const app = server.build();
-
-app.listen(port);
+server.build();
 console.log(`Server is listening on port ${port}`);
