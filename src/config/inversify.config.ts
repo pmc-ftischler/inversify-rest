@@ -10,4 +10,5 @@ appContainer.bind<interfaces.Controller>(TYPE.Controller).to(MainController)
     .whenTargetNamed(TAGS.MainController);
 appContainer.bind<interfaces.Controller>(TYPE.Controller).to(MitarbeiterController)
     .whenTargetNamed(TAGS.MitarbeiterController);
-appContainer.bind<MitarbeiterService>(MitarbeiterService).toSelf();
+appContainer.bind<MainController>(MainController).toSelf().inSingletonScope();
+appContainer.bind<MitarbeiterService>(MitarbeiterService).toSelf().inSingletonScope();
